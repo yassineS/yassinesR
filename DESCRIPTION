@@ -1,0 +1,25 @@
+Package: yassinesR
+Type: Package
+Title: Custom ggplot2 Themes and Helper Functions
+Version: 0.1.0
+Authors@R: person("Yassine", "Souilmi", 
+    email = "yassine@example.com", 
+    role = c("aut", "cre"))
+Description: Provides custom ggplot2 themes, favourite colour schemes, 
+    and useful helper functions for data visualization and analysis.
+License: Apache License (>= 2.0)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Depends: 
+    R (>= 3.5.0)
+Imports:
+    ggplot2 (>= 3.0.0)
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/yassineS/yassinesR
+BugReports: https://github.com/yassineS/yassinesR/issues
