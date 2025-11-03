@@ -109,8 +109,17 @@ scale_color_yassine <- function(palette = "main", discrete = TRUE, reverse = FAL
   }
   
   if (discrete) {
+    # Store palette colors to avoid recalculation
+    palette_func <- function(n) {
+      if (n > length(pal)) {
+        warning("Requested ", n, " colours but palette only has ", 
+                length(pal), " colours. Recycling colours.")
+        return(rep(pal, length.out = n))
+      }
+      pal[1:n]
+    }
     ggplot2::discrete_scale("colour", paste0("yassine_", palette), 
-                            palette = function(n) yassine_colors(palette, n), ...)
+                            palette = palette_func, ...)
   } else {
     ggplot2::scale_color_gradientn(colours = pal, ...)
   }
@@ -145,8 +154,17 @@ scale_fill_yassine <- function(palette = "main", discrete = TRUE, reverse = FALS
   }
   
   if (discrete) {
+    # Store palette colors to avoid recalculation
+    palette_func <- function(n) {
+      if (n > length(pal)) {
+        warning("Requested ", n, " colours but palette only has ", 
+                length(pal), " colours. Recycling colours.")
+        return(rep(pal, length.out = n))
+      }
+      pal[1:n]
+    }
     ggplot2::discrete_scale("fill", paste0("yassine_", palette), 
-                           palette = function(n) yassine_colors(palette, n), ...)
+                           palette = palette_func, ...)
   } else {
     ggplot2::scale_fill_gradientn(colours = pal, ...)
   }

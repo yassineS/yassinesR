@@ -37,7 +37,7 @@ format_numbers <- function(x, digits = 2, scientific = FALSE, big_mark = ",") {
 #' summary_stats(c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
 summary_stats <- function(x, na.rm = TRUE) {
   list(
-    n = length(x),
+    n = if (na.rm) sum(!is.na(x)) else length(x),
     mean = mean(x, na.rm = na.rm),
     median = median(x, na.rm = na.rm),
     sd = sd(x, na.rm = na.rm),
