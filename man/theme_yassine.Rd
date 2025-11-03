@@ -24,8 +24,8 @@ theme_yassine(
 A ggplot2 theme object
 }
 \description{
-A clean and modern ggplot2 theme with customizable options.
-This theme provides a minimal look with good defaults for scientific plots.
+A clean ggplot2 theme resembling base R with legible text.
+This theme is based on theme_classic() with customizations for scientific plots.
 }
 \examples{
 \dontrun{

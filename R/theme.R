@@ -1,7 +1,7 @@
 #' Custom ggplot2 Theme
 #'
-#' A clean and modern ggplot2 theme with customizable options.
-#' This theme provides a minimal look with good defaults for scientific plots.
+#' A clean ggplot2 theme resembling base R with legible text.
+#' This theme is based on theme_classic() with customizations for scientific plots.
 #'
 #' @param base_size Base font size (default: 12)
 #' @param base_family Base font family (default: "")
@@ -11,7 +11,7 @@
 #' @return A ggplot2 theme object
 #' @export
 #'
-#' @importFrom ggplot2 theme theme_minimal element_text element_line element_blank element_rect %+replace%
+#' @importFrom ggplot2 theme theme_classic element_text element_line element_blank element_rect %+replace% margin
 #'
 #' @examples
 #' \dontrun{
@@ -25,54 +25,23 @@ theme_yassine <- function(base_size = 12,
                           base_line_size = base_size / 22,
                           base_rect_size = base_size / 22) {
   
-  theme_minimal(base_size = base_size,
+  theme_classic(base_size = base_size,
                 base_family = base_family,
                 base_line_size = base_line_size) %+replace%
     theme(
-      # Plot background
-      plot.background = element_rect(fill = "white", colour = NA),
-      panel.background = element_rect(fill = "white", colour = NA),
+      # Plot title - plain text, size 13, centered
+      plot.title = element_text(size = 13, face = "plain", hjust = 0.5),
       
-      # Grid
-      panel.grid.major = element_line(colour = "grey90", linewidth = 0.5),
-      panel.grid.minor = element_line(colour = "grey95", linewidth = 0.25),
+      # Axis styling - size 13 for titles, size 12 black for text
+      axis.title = element_text(size = 13),
+      axis.text = element_text(size = 12, color = "black"),
       
-      # Axes
-      axis.line = element_line(colour = "grey20", linewidth = 0.5),
-      axis.ticks = element_line(colour = "grey20", linewidth = 0.5),
-      axis.text = element_text(colour = "grey20", size = rel(0.9)),
-      axis.title = element_text(colour = "grey20", size = rel(1.0), face = "bold"),
+      # Plot margins - top 5, right 2, bottom 5, left 16
+      plot.margin = margin(t = 5, r = 2, b = 5, l = 16, unit = "pt"),
       
-      # Legend
-      legend.background = element_rect(fill = "white", colour = NA),
-      legend.key = element_rect(fill = "white", colour = NA),
-      legend.text = element_text(colour = "grey20", size = rel(0.9)),
-      legend.title = element_text(colour = "grey20", size = rel(1.0), face = "bold"),
-      
-      # Plot title and subtitle
-      plot.title = element_text(
-        colour = "grey20",
-        size = rel(1.2),
-        face = "bold",
-        hjust = 0,
-        margin = margin(b = base_size / 2)
-      ),
-      plot.subtitle = element_text(
-        colour = "grey30",
-        size = rel(1.0),
-        hjust = 0,
-        margin = margin(b = base_size / 2)
-      ),
-      plot.caption = element_text(
-        colour = "grey50",
-        size = rel(0.8),
-        hjust = 1,
-        margin = margin(t = base_size / 2)
-      ),
-      
-      # Strip (for facets)
-      strip.background = element_rect(fill = "grey90", colour = NA),
-      strip.text = element_text(colour = "grey20", size = rel(1.0), face = "bold"),
+      # Legend - bottom position, size 12
+      legend.position = "bottom",
+      legend.text = element_text(size = 12),
       
       complete = TRUE
     )
