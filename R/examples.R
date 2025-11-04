@@ -30,6 +30,7 @@ example_scatterplot <- function() {
   ) +
     ggplot2::geom_point(alpha = 0.7, size = 2) +
     ggplot2::geom_smooth(method = "loess", alpha = 0.05, linewidth = 1, span = 1) +
+    scale_color_yassine() +
     ggplot2::theme_minimal() +
     ggplot2::theme(
       panel.grid.minor = ggplot2::element_blank()
@@ -44,6 +45,7 @@ example_barplot <- function() {
     ggplot2::aes(x = .data$Species, fill = .data$Species)
   ) +
     ggplot2::geom_bar() +
+    scale_fill_yassine() +
     ggplot2::theme_minimal() +
     ggplot2::theme(
       panel.grid.major.x = ggplot2::element_blank(),
@@ -62,6 +64,7 @@ example_log_scatterplot <- function() {
   ) +
     ggplot2::geom_point(alpha = 0.7, size = 2) +
     scale_log_axis(axis = "x") +
+    scale_color_yassine() +
     ggplot2::theme_minimal() +
     ggplot2::theme(
       panel.grid.minor = ggplot2::element_blank()
