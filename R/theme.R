@@ -11,7 +11,7 @@
 #' @return A ggplot2 theme object
 #' @export
 #'
-#' @importFrom ggplot2 theme theme_classic element_text element_line element_blank element_rect %+replace% margin
+#' @importFrom ggplot2 theme theme_classic element_text element_line element_blank element_rect %+replace% margin update_geom_defaults
 #'
 #' @examples
 #' \dontrun{
@@ -24,6 +24,9 @@ theme_yassine <- function(base_size = 12,
                           base_family = "",
                           base_line_size = base_size / 22,
                           base_rect_size = base_size / 22) {
+  
+  # Update geom_point defaults
+  update_geom_defaults("point", list(shape = 21, colour = "gray30", alpha = 0.8))
   
   theme_classic(base_size = base_size,
                 base_family = base_family,

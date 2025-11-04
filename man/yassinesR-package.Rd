@@ -2,8 +2,8 @@
 % Please edit documentation in R/yassinesR-package.R
 \docType{package}
 \name{yassinesR-package}
-\alias{yassinesR}
 \alias{yassinesR-package}
+\alias{yassinesR}
 \title{yassinesR: Custom ggplot2 Themes and Helper Functions}
 \description{
 This package provides custom ggplot2 themes, colour palettes, and
@@ -12,20 +12,32 @@ helper functions for data visualization and analysis.
 \section{Main Functions}{
 
 \itemize{
-  \item \code{\link{theme_yassine}}: Custom ggplot2 theme
-  \item \code{\link{yassine_colors}}: Colour palette generator
-  \item \code{\link{scale_color_yassine}}: ggplot2 colour scale
-  \item \code{\link{scale_fill_yassine}}: ggplot2 fill scale
+\item \code{\link{theme_yassine}}: Custom ggplot2 theme
+\item \code{\link{yassine_colors}}: Colour palette generator
+\item \code{\link{scale_color_yassine}}: ggplot2 colour scale
+\item \code{\link{scale_fill_yassine}}: ggplot2 fill scale
 }
 }
 
 \section{Helper Functions}{
 
 \itemize{
-  \item \code{\link{format_numbers}}: Format numbers for plotting
-  \item \code{\link{summary_stats}}: Calculate summary statistics
-  \item \code{\link{percent}}: Calculate percentages
-  \item \code{\link{\%notin\%}}: Not-in operator
+\item \code{\link{format_numbers}}: Format numbers for plotting
+\item \code{\link{summary_stats}}: Calculate summary statistics
+\item \code{\link{percent}}: Calculate percentages
+\item \code{\link{\%notin\%}}: Not-in operator
 }
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/yassineS/yassinesR}
+  \item Report bugs at \url{https://github.com/yassineS/yassinesR/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Yassine Souilmi \email{yassine@example.com}
+
+}
