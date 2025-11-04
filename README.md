@@ -44,13 +44,13 @@ yassine_colors("contrast", n = 6)
 
 # Access colors by name (all palettes use named vectors)
 colors <- yassine_colors("main")
-colors["Blue"]          # Returns Blue color: "#0066CC"
-colors["Orange"]        # Returns Orange color: "#FF6B35"
+colors["Blue"]          # Returns the Blue color from the palette
+colors["Orange"]        # Returns the Orange color from the palette
 
 # BODL palette with Australian-themed names
 bodl <- yassine_colors("bodl")
-bodl["FairyWrenBlue"]   # Returns FairyWrenBlue: "#68B0E3"
-bodl["BanksiaOrange"]   # Returns BanksiaOrange: "#F58C05"
+bodl["FairyWrenBlue"]   # Returns the FairyWrenBlue color from the palette
+bodl["BanksiaOrange"]   # Returns the BanksiaOrange color from the palette
 
 # Use in ggplot2
 ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
