@@ -73,3 +73,45 @@ test_that("continuous palette interpolation maintains functionality", {
   expect_equal(length(continuous_colors), 10)
   # Continuous palettes from colorRampPalette typically don't have names
 })
+
+test_that("scale_color_yassine returns unnamed vectors for ggplot2", {
+  # The palette function within scale_color_yassine must return unnamed vectors
+  # to work correctly with ggplot2's discrete_scale
+  
+  # Create a scale object
+  scale <- scale_color_yassine(palette = "main")
+  
+  # Extract the palette function from the scale
+  # The palette function should be in the scale object
+  expect_s3_class(scale, "ScaleDiscrete")
+  
+  # Test that the palette function returns unnamed vectors
+  # We can access the palette function through the scale's palette field
+  if (!is.null(scale$palette)) {
+    colors_3 <- scale$palette(3)
+    expect_null(names(colors_3), 
+                info = "Palette function should return unnamed color vectors")
+    expect_equal(length(colors_3), 3)
+    expect_true(all(grepl("^#[0-9A-Fa-f]{6}$", colors_3)))
+  }
+})
+
+test_that("scale_fill_yassine returns unnamed vectors for ggplot2", {
+  # The palette function within scale_fill_yassine must return unnamed vectors
+  # to work correctly with ggplot2's discrete_scale
+  
+  # Create a scale object
+  scale <- scale_fill_yassine(palette = "main")
+  
+  # Extract the palette function from the scale
+  expect_s3_class(scale, "ScaleDiscrete")
+  
+  # Test that the palette function returns unnamed vectors
+  if (!is.null(scale$palette)) {
+    colors_3 <- scale$palette(3)
+    expect_null(names(colors_3), 
+                info = "Palette function should return unnamed color vectors")
+    expect_equal(length(colors_3), 3)
+    expect_true(all(grepl("^#[0-9A-Fa-f]{6}$", colors_3)))
+  }
+})
