@@ -27,6 +27,12 @@ A ggplot2 theme object
 A clean ggplot2 theme resembling base R with legible text.
 This theme is based on theme_classic() with customizations for scientific plots.
 }
+\details{
+This theme sets default aesthetics for \code{geom_point} to use shape 21
+(filled circle), color "gray30", and alpha 0.8. Note that calling this theme
+function will modify global ggplot2 defaults for point geoms, which will
+persist for subsequent plots in the session unless explicitly overridden.
+}
 \examples{
 \dontrun{
 library(ggplot2)
