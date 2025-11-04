@@ -18,6 +18,7 @@
 #'
 #' @importFrom rlang .data
 #' @importFrom tibble tibble
+#' @importFrom stats rnorm
 #'
 #' @export example_scatterplot
 #'
