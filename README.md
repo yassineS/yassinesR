@@ -50,6 +50,16 @@ yassine_colors("cool", n = 5)
 yassine_colors("warm", n = 4)
 yassine_colors("contrast", n = 6)
 
+# Access colors by name (all palettes use named vectors)
+colors <- yassine_colors("main")
+colors["Blue"]          # Returns the Blue color from the palette
+colors["Orange"]        # Returns the Orange color from the palette
+
+# BODL palette with Australian-themed names
+bodl <- yassine_colors("bodl")
+bodl["FairyWrenBlue"]   # Returns the FairyWrenBlue color from the palette
+bodl["BanksiaOrange"]   # Returns the BanksiaOrange color from the palette
+
 # Use in ggplot2
 ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
   geom_point(size = 3) +

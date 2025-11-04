@@ -7,7 +7,7 @@
 yassine_colors(palette = "main", n = NULL, type = "discrete")
 }
 \arguments{
-\item{palette}{Name of the palette. Options: "main", "cool", "warm", "contrast"}
+\item{palette}{Name of the palette. Options: "main", "cool", "warm", "contrast", "bodl"}
 
 \item{n}{Number of colours to return. If NULL, returns all colours in the palette.}
 

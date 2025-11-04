@@ -7,7 +7,7 @@
 scale_fill_yassine(palette = "main", discrete = TRUE, reverse = FALSE, ...)
 }
 \arguments{
-\item{palette}{Name of the palette. Options: "main", "cool", "warm", "contrast"}
+\item{palette}{Name of the palette. Options: "main", "cool", "warm", "contrast", "bodl"}
 
 \item{discrete}{Whether to use discrete (TRUE) or continuous (FALSE) colours}
 
