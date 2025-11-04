@@ -15,7 +15,9 @@ RoxygenNote: 7.0.0
 Depends: 
     R (>= 3.5.0)
 Imports:
-    ggplot2 (>= 3.0.0)
+    ggplot2 (>= 3.0.0),
+    rlang,
+    scales
 Suggests:
     testthat (>= 3.0.0),
     knitr,
