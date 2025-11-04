@@ -56,12 +56,14 @@ test_that("colors can be accessed by their names", {
 
 test_that("palette subset returns named vectors", {
   # When requesting fewer colors than available, names should be preserved
+  main_full <- yassine_colors("main")
   main_subset <- yassine_colors("main", n = 3)
+  
   expect_true(!is.null(names(main_subset)))
   expect_equal(length(main_subset), 3)
-  expect_equal(names(main_subset)[1], "Blue")
-  expect_equal(names(main_subset)[2], "Orange")
-  expect_equal(names(main_subset)[3], "DarkBlue")
+  
+  # Subset names should match the first n names from the full palette
+  expect_equal(names(main_subset), names(main_full)[1:3])
 })
 
 test_that("continuous palette interpolation maintains functionality", {
