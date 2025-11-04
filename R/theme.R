@@ -103,7 +103,7 @@ theme_yassine_dark <- function(base_size = 12,
       # Legend - bottom position, size 12, light color and dark background
       legend.position = "bottom",
       legend.text = element_text(size = 12, color = ghost_gum_grey),
-      legend.title = element_text(color = ghost_gum_grey),
+      legend.title = element_text(size = 12, color = ghost_gum_grey),
       legend.background = element_rect(fill = crow_black, color = NA),
       legend.key = element_rect(fill = crow_black, color = NA),
       
