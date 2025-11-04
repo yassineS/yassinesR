@@ -29,6 +29,14 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
   theme_yassine()
 ```
 
+A dark version is also available with `theme_yassine_dark()`, which uses a CrowBlack background and GhostGumGrey text while preserving the visual identity:
+
+``` r
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point(color = "#FF6B35") +
+  theme_yassine_dark()
+```
+
 ### Colour Palettes
 
 Access carefully curated colour palettes optimized for data visualization:
