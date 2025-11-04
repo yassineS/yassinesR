@@ -100,6 +100,31 @@ percent(c(10, 20, 30), 100)  # Returns c(10.0, 20.0, 30.0)
 1:5 %notin% c(3, 4, 5)  # Returns c(TRUE, TRUE, FALSE, FALSE, FALSE)
 ```
 
+### Example Plots
+
+The package provides example plotting functions using the iris dataset to demonstrate the color palettes:
+
+``` r
+# Scatter plot with color by Species
+example_scatterplot()
+
+# Bar plot of Species counts
+example_barplot()
+
+# Scatter plot with log-scaled x-axis
+example_log_scatterplot()
+
+# Use the log scale helper function on any plot
+library(ggplot2)
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  scale_log_axis("x")  # Apply log scale to x-axis
+
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  scale_log_axis("y")  # Apply log scale to y-axis
+```
+
 ## Development
 
 This package follows best practices as outlined in [R Packages (2e)](https://r-pkgs.org/) by Hadley Wickham and Jennifer Bryan.
