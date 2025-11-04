@@ -60,6 +60,7 @@ Available palettes:
 - `"cool"` - Cool tones (blues, teals, purples)
 - `"warm"` - Warm tones (oranges, reds, yellows)
 - `"contrast"` - High contrast colors
+- `"bodl"` - Australian-themed BODL colors
 
 ### Helper Functions
 

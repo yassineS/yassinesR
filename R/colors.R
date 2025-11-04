@@ -3,7 +3,7 @@
 #' A carefully curated colour palette for data visualization.
 #' These colours work well together and are suitable for both print and screen.
 #'
-#' @param palette Name of the palette. Options: "main", "cool", "warm", "contrast"
+#' @param palette Name of the palette. Options: "main", "cool", "warm", "contrast", "bodl"
 #' @param n Number of colours to return. If NULL, returns all colours in the palette.
 #' @param type Either "discrete" or "continuous"
 #'
@@ -53,6 +53,24 @@ yassine_colors <- function(palette = "main", n = NULL, type = "discrete") {
       "#D62828",  # Red
       "#8338EC",  # Purple
       "#FFBA08"   # Yellow
+    ),
+    bodl = c(
+      "#9E2900",  # CentralRed
+      "#F58C05",  # BanksiaOrange
+      "#759C78",  # EucalyptGreen
+      "#68B0E3",  # FairyWrenBlue
+      "#B84700",  # KangarooRed
+      "#FFB814",  # DesertFlameYellow
+      "#75B24D",  # LorikeetGreen
+      "#85B8DB",  # BudgerigarBlue
+      "#E05C0A",  # BushTomatoRed
+      "#7869E8",  # CoralPeaPurple
+      "#368AC4",  # KingfisherBlue
+      "#D6E8F2",  # KookaburraBlue
+      "#2B3036",  # CrowBlack
+      "#3D3D40",  # WillieWagtailBlack
+      "#EBEDEB",  # EmuGrey
+      "#EAEEE8"   # GhostGumGrey
     )
   )
   
@@ -85,7 +103,7 @@ yassine_colors <- function(palette = "main", n = NULL, type = "discrete") {
 #'
 #' Apply Yassine's colour palettes to ggplot2 plots (for colour aesthetic).
 #'
-#' @param palette Name of the palette. Options: "main", "cool", "warm", "contrast"
+#' @param palette Name of the palette. Options: "main", "cool", "warm", "contrast", "bodl"
 #' @param discrete Whether to use discrete (TRUE) or continuous (FALSE) colours
 #' @param reverse Whether to reverse the colour order
 #' @param ... Additional arguments passed to ggplot2 scale functions
@@ -130,7 +148,7 @@ scale_color_yassine <- function(palette = "main", discrete = TRUE, reverse = FAL
 #'
 #' Apply Yassine's colour palettes to ggplot2 plots (for fill aesthetic).
 #'
-#' @param palette Name of the palette. Options: "main", "cool", "warm", "contrast"
+#' @param palette Name of the palette. Options: "main", "cool", "warm", "contrast", "bodl"
 #' @param discrete Whether to use discrete (TRUE) or continuous (FALSE) colours
 #' @param reverse Whether to reverse the colour order
 #' @param ... Additional arguments passed to ggplot2 scale functions
