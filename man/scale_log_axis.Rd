@@ -4,13 +4,19 @@
 \alias{scale_log_axis}
 \title{Apply logarithmic scale with proper tick marks}
 \usage{
-scale_log_axis(axis = "x", ...)
+scale_log_axis(axis = "x", ..., long = 2.25, mid = 1.5, short = 0.75)
 }
 \arguments{
 \item{axis}{Character string specifying which axis to apply the log scale to.
 Either "x" or "y".}
 
 \item{...}{Additional arguments passed to scale_x_log10() or scale_y_log10()}
+
+\item{long}{Relative length of long tick marks. Default is 2.25.}
+
+\item{mid}{Relative length of mid-level tick marks. Default is 1.5.}
+
+\item{short}{Relative length of short tick marks. Default is 0.75.}
 }
 \value{
 A ggplot2 scale object
