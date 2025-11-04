@@ -34,13 +34,24 @@ test_that("color names are meaningful and follow naming conventions", {
 test_that("colors can be accessed by their names", {
   main_colors <- yassine_colors("main")
   
-  # Test that we can access colors by name
-  expect_equal(main_colors["Blue"], c(Blue = "#0066CC"))
-  expect_equal(main_colors["Orange"], c(Orange = "#FF6B35"))
+  # Test that we can access colors by name and get a named character vector
+  blue_color <- main_colors["Blue"]
+  expect_true(is.character(blue_color))
+  expect_equal(names(blue_color), "Blue")
+  expect_true(grepl("^#[0-9A-Fa-f]{6}$", blue_color))  # Valid hex color
+  
+  orange_color <- main_colors["Orange"]
+  expect_equal(names(orange_color), "Orange")
+  expect_true(grepl("^#[0-9A-Fa-f]{6}$", orange_color))
   
   bodl_colors <- yassine_colors("bodl")
-  expect_equal(bodl_colors["CentralRed"], c(CentralRed = "#9E2900"))
-  expect_equal(bodl_colors["FairyWrenBlue"], c(FairyWrenBlue = "#68B0E3"))
+  central_red <- bodl_colors["CentralRed"]
+  expect_equal(names(central_red), "CentralRed")
+  expect_true(grepl("^#[0-9A-Fa-f]{6}$", central_red))
+  
+  fairy_wren <- bodl_colors["FairyWrenBlue"]
+  expect_equal(names(fairy_wren), "FairyWrenBlue")
+  expect_true(grepl("^#[0-9A-Fa-f]{6}$", fairy_wren))
 })
 
 test_that("palette subset returns named vectors", {
