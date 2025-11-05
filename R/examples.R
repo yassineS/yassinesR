@@ -80,8 +80,10 @@ example_log_scatterplot <- function() {
 #'
 #' @param axis Character string specifying which axis to apply the log scale to.
 #'   Either "x" or "y".
-#' @param ... Additional arguments passed to scale_x_log10() or scale_y_log10().
-#'   Common arguments include `breaks`, `labels`, `limits`, and `guide`.
+#' @param ... Additional arguments passed to scale_x_log10() or scale_y_log10()
+#' @param long Relative length of long tick marks. Default is 2.25.
+#' @param mid Relative length of mid-level tick marks. Default is 1.5.
+#' @param short Relative length of short tick marks. Default is 0.75.
 #'
 #' @return A ggplot2 scale object
 #' @export
@@ -116,19 +118,27 @@ example_log_scatterplot <- function() {
 #'     labels = c('0.01%', '0.1%', '1%', '10%', '50%'),
 #'     guide = guide_axis_logticks(long = 2.25, mid = 1.5, short = 0.75))
 #' }
-scale_log_axis <- function(axis = "x", ...) {
+scale_log_axis <- function(axis = "x", ..., long = 2.25, mid = 1.5, short = 0.75) {
   if (!axis %in% c("x", "y")) {
     stop("axis must be either 'x' or 'y'")
   }
   
+  logticks_guide <- ggplot2::guide_axis_logticks(
+    long = long,
+    mid = mid,
+    short = short
+  )
+  
   if (axis == "x") {
     ggplot2::scale_x_log10(
+      guide = logticks_guide,
       breaks = scales::trans_breaks("log10", function(x) 10^x),
       labels = scales::label_number(),
       ...
     )
   } else {
     ggplot2::scale_y_log10(
+      guide = logticks_guide,
       breaks = scales::trans_breaks("log10", function(x) 10^x),
       labels = scales::label_number(),
       ...
