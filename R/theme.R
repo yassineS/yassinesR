@@ -3,6 +3,12 @@
 #' A clean ggplot2 theme resembling base R with legible text.
 #' This theme is based on theme_classic() with customizations for scientific plots.
 #'
+#' @details
+#' This theme sets default aesthetics for \code{geom_point} to use shape 21 
+#' (filled circle), color "gray30", and alpha 0.8. Note that calling this theme
+#' function will modify global ggplot2 defaults for point geoms, which will 
+#' persist for subsequent plots in the session unless explicitly overridden.
+#'
 #' @param base_size Base font size (default: 12)
 #' @param base_family Base font family (default: "")
 #' @param base_line_size Base line size (default: base_size/22)
@@ -11,7 +17,7 @@
 #' @return A ggplot2 theme object
 #' @export
 #'
-#' @importFrom ggplot2 theme theme_classic element_text element_line element_blank element_rect %+replace% margin
+#' @importFrom ggplot2 theme theme_classic element_text element_line element_blank element_rect %+replace% margin update_geom_defaults
 #'
 #' @examples
 #' \dontrun{
@@ -24,6 +30,9 @@ theme_yassine <- function(base_size = 12,
                           base_family = "",
                           base_line_size = base_size / 22,
                           base_rect_size = base_size / 22) {
+  
+  # Update geom_point defaults
+  update_geom_defaults("point", list(shape = 21, colour = "gray30", alpha = 0.8))
   
   theme_classic(base_size = base_size,
                 base_family = base_family,
