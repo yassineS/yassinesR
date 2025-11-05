@@ -26,3 +26,21 @@ test_that("scale_log_axis works for y-axis", {
 test_that("scale_log_axis throws error for invalid axis", {
   expect_error(scale_log_axis("z"), "axis must be either 'x' or 'y'")
 })
+
+test_that("scale_log_axis accepts custom breaks and labels", {
+  # Verify that custom breaks and labels can be passed without error
+  scale <- scale_log_axis("x", 
+                          breaks = c(0.001, 0.01, 0.1), 
+                          labels = c('0.1%', '1%', '10%'))
+  expect_s3_class(scale, "ScaleContinuousPosition")
+  # The scale object should be created successfully with custom parameters
+})
+
+test_that("scale_log_axis accepts custom limits and guide", {
+  # Verify that custom limits and guide can be passed without error
+  scale <- scale_log_axis("y", 
+                          limits = c(0.01, 1),
+                          guide = "none")
+  expect_s3_class(scale, "ScaleContinuousPosition")
+  # The scale object should be created successfully with custom parameters
+})

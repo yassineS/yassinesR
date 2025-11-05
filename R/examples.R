@@ -75,7 +75,8 @@ example_log_scatterplot <- function() {
 #' Apply logarithmic scale with proper tick marks
 #'
 #' A helper function to apply logarithmic scaling (base 10) to either x or y axis
-#' with properly formatted tick marks showing powers of 10.
+#' with properly formatted tick marks. By default, labels are shown as decimal numbers.
+#' You can customize the breaks, labels, and guide by passing additional arguments.
 #'
 #' @param axis Character string specifying which axis to apply the log scale to.
 #'   Either "x" or "y".
@@ -90,6 +91,7 @@ example_log_scatterplot <- function() {
 #' @examples
 #' \dontrun{
 #' library(ggplot2)
+#' # Default usage with decimal labels
 #' ggplot(mtcars, aes(x = wt, y = mpg)) +
 #'   geom_point() +
 #'   scale_log_axis("x")
@@ -97,6 +99,24 @@ example_log_scatterplot <- function() {
 #' ggplot(mtcars, aes(x = wt, y = mpg)) +
 #'   geom_point() +
 #'   scale_log_axis("y")
+#'
+#' # Custom breaks and labels (e.g., for percentage data)
+#' ggplot(data.frame(x = c(0.0001, 0.001, 0.01, 0.1, 0.5), y = 1:5),
+#'        aes(x = x, y = y)) +
+#'   geom_point() +
+#'   scale_log_axis("x",
+#'     breaks = c(0.0001, 0.001, 0.01, 0.1, 0.5),
+#'     labels = c('0.01%', '0.1%', '1%', '10%', '50%'))
+#'
+#' # With custom guide for log ticks
+#' ggplot(data.frame(x = c(0.0001, 0.001, 0.01, 0.1, 0.5), y = 1:5),
+#'        aes(x = x, y = y)) +
+#'   geom_point() +
+#'   scale_log_axis("x",
+#'     limits = c(0.000085, 0.47),
+#'     breaks = c(0.0001, 0.001, 0.01, 0.1, 0.5),
+#'     labels = c('0.01%', '0.1%', '1%', '10%', '50%'),
+#'     guide = guide_axis_logticks(long = 2.25, mid = 1.5, short = 0.75))
 #' }
 scale_log_axis <- function(axis = "x", ..., long = 2.25, mid = 1.5, short = 0.75) {
   if (!axis %in% c("x", "y")) {
@@ -112,11 +132,15 @@ scale_log_axis <- function(axis = "x", ..., long = 2.25, mid = 1.5, short = 0.75
   if (axis == "x") {
     ggplot2::scale_x_log10(
       guide = logticks_guide,
+      breaks = scales::trans_breaks("log10", function(x) 10^x),
+      labels = scales::label_number(),
       ...
     )
   } else {
     ggplot2::scale_y_log10(
       guide = logticks_guide,
+      breaks = scales::trans_breaks("log10", function(x) 10^x),
+      labels = scales::label_number(),
       ...
     )
   }
