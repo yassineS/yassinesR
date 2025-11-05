@@ -10,18 +10,21 @@ scale_log_axis(axis = "x", ...)
 \item{axis}{Character string specifying which axis to apply the log scale to.
 Either "x" or "y".}
 
-\item{...}{Additional arguments passed to scale_x_log10() or scale_y_log10()}
+\item{...}{Additional arguments passed to scale_x_log10() or scale_y_log10().
+Common arguments include \code{breaks}, \code{labels}, \code{limits}, and \code{guide}.}
 }
 \value{
 A ggplot2 scale object
 }
 \description{
 A helper function to apply logarithmic scaling (base 10) to either x or y axis
-with properly formatted tick marks showing powers of 10.
+with properly formatted tick marks. By default, labels are shown as decimal numbers.
+You can customize the breaks, labels, and guide by passing additional arguments.
 }
 \examples{
 \dontrun{
 library(ggplot2)
+# Default usage with decimal labels
 ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point() +
   scale_log_axis("x")
@@ -29,5 +32,23 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
 ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point() +
   scale_log_axis("y")
+
+# Custom breaks and labels (e.g., for percentage data)
+ggplot(data.frame(x = c(0.0001, 0.001, 0.01, 0.1, 0.5), y = 1:5),
+       aes(x = x, y = y)) +
+  geom_point() +
+  scale_log_axis("x",
+    breaks = c(0.0001, 0.001, 0.01, 0.1, 0.5),
+    labels = c('0.01\%', '0.1\%', '1\%', '10\%', '50\%'))
+
+# With custom guide for log ticks
+ggplot(data.frame(x = c(0.0001, 0.001, 0.01, 0.1, 0.5), y = 1:5),
+       aes(x = x, y = y)) +
+  geom_point() +
+  scale_log_axis("x",
+    limits = c(0.000085, 0.47),
+    breaks = c(0.0001, 0.001, 0.01, 0.1, 0.5),
+    labels = c('0.01\%', '0.1\%', '1\%', '10\%', '50\%'),
+    guide = guide_axis_logticks(long = 2.25, mid = 1.5, short = 0.75))
 }
 }
