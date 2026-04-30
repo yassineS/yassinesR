@@ -3,7 +3,14 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-An R package providing custom ggplot2 themes, colour palettes, and helper functions for data visualization and analysis.
+An R package providing custom ggplot2 themes, colour palettes, and helper
+functions for data visualisation and analysis. Two coexisting theme systems:
+
+* **`theme_yassine()`** — the original yassinesR theme.
+* **`theme_majorelle()`** — the Majorelle design language (Apple typographic
+  scaffolding + Jardin Majorelle palette), with `rabat` and `palmeraie`
+  variants and a complete helper suite (log ticks, annotations, highlight,
+  raincloud).
 
 ## Installation
 
@@ -125,9 +132,134 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
   scale_log_axis("y")  # Apply log scale to y-axis
 ```
 
+## Majorelle design language
+
+Majorelle is a separate theme system shipped alongside `theme_yassine()`.
+It pairs Apple HIG typographic scaffolding with a palette inspired by
+Yves Saint Laurent's Jardin Majorelle in Marrakech.
+
+Two named variants share the same scaffolding and helper suite:
+
+| Variant      | Surface           | Mood                                       |
+|--------------|-------------------|--------------------------------------------|
+| `rabat`      | white `#FFFFFF`   | the white-walled Moroccan capital — crisp, formal, neutral |
+| `palmeraie`  | terracotta `#D97461` | the Marrakech palm grove — sun-warmed adobe + cobalt blue + saffron + cactus + Jardin teal |
+
+```r
+library(yassinesR)
+library(ggplot2)
+
+# Switch session-wide to the rabat (default white-walled) variant.
+use_majorelle_defaults("rabat")
+
+# Or to palmeraie — sun-warmed terracotta with the Jardin palette.
+use_majorelle_defaults("palmeraie")
+```
+
+`use_majorelle_defaults()` records the variant in
+`options("majorelle.variant")`; the annotation, highlight, and scale
+helpers all read this so you don't have to thread `variant=` everywhere.
+
+### Scatter — discrete fill
+
+```r
+use_majorelle_defaults("rabat")
+use_majorelle_points()  # geom_point defaults to filled circles + variant edge
+
+ggplot(iris, aes(Sepal.Length, Sepal.Width, fill = Species)) +
+  geom_point(alpha = 0.95) +
+  scale_fill_majorelle() +
+  theme_majorelle() +
+  labs(title    = "Iris flowers, by species",
+       subtitle = "Sepal dimensions across the three Iris species",
+       caption  = "Source: Anderson 1935")
+```
+
+### Log-log with tiered ticks
+
+```r
+ggplot(df, aes(x, y, colour = grp, fill = grp)) +
+  geom_point(alpha = 0.9) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_x_log10_majorelle() +
+  scale_y_log10_majorelle(limits = c(0.17, 24)) +
+  log_ticks(sides = "bl") +
+  scale_colour_majorelle() +
+  scale_fill_majorelle() +
+  theme_majorelle()
+```
+
+`log_ticks()` renders long/mid/short ticks at 1×10ᵏ / 5×10ᵏ / 2-9×10ᵏ
+mantissas plus 1.5 / 2.5 / 7.5 so the visual density stays uniform
+inside the 1-2 and 10-20 stretches (where integer-only minor ticks
+leave gaps). It works even when the plot uses a discrete colour
+aesthetic, where ggplot2 4.0's `annotation_logticks()` silently fails.
+
+### Continuous fill
+
+```r
+ggplot(diamonds[sample(nrow(diamonds), 4000), ],
+       aes(carat, price, fill = depth)) +
+  geom_point(alpha = 0.9, size = 2.4, stroke = 0.25) +
+  facet_wrap(~ cut, nrow = 2) +
+  scale_fill_majorelle_c() +    # palette = "blues" by default
+  scale_y_continuous(labels = scales::label_dollar()) +
+  theme_majorelle()
+```
+
+Pass `palette = "golds"`, `"terracottas"`, or `"greens"` for the other
+sequential ramps. `scale_*_majorelle_d2()` gives diverging variants
+(`"brand"` / `"gold"` / `"cool"`).
+
+### Highlight + annotation helpers
+
+```r
+palette5 <- highlight_series(n_series = 6, focus = 3)
+
+ggplot(ts, aes(t, value, colour = series, linewidth = series)) +
+  geom_line() +
+  scale_colour_manual(values = palette5, guide = "none") +
+  scale_linewidth_manual(values = ifelse(seq_len(6) == 3, 1.2, 0.6),
+                         guide = "none") +
+  annotate_target(35, peak_y, "Peak",
+                  nudge_x = 2.5, nudge_y = 1.6,
+                  hjust = 0, vjust = 0) +
+  annotate_anomaly(50, dip_y,  "Anomaly",
+                   nudge_x = 2.5, nudge_y = -1.6,
+                   hjust = 0, vjust = 1) +
+  theme_majorelle()
+```
+
+`annotate_anomaly()` defaults to terracotta on `rabat` and gold on
+`palmeraie` (terracotta would vanish into the surface). `annotate_target()`
+is lush green on both. Pass `colour=` to override.
+
+### Raincloud
+
+```r
+raincloud_majorelle(mpg, x = "class", y = "hwy")
+```
+
+Or compose layer-by-layer:
+
+```r
+ggplot(mpg, aes(class, hwy, fill = class)) +
+  geom_raincloud_majorelle() +
+  scale_fill_majorelle() +
+  theme_majorelle()
+```
+
+Inspired by [njudd/ggrain](https://github.com/njudd/ggrain), composed
+from `gghalves::geom_half_violin` + a narrow `geom_boxplot` + jittered
+raw points so the dependency stays conda-forge friendly.
+
 ## Development
 
 This package follows best practices as outlined in [R Packages (2e)](https://r-pkgs.org/) by Hadley Wickham and Jennifer Bryan.
+
+After pulling Majorelle changes, run `devtools::document()` to
+regenerate the `man/` pages from the roxygen comments in the new
+`R/majorelle_*.R` files.
 
 ## License
 
