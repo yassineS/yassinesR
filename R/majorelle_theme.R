@@ -70,11 +70,17 @@ majorelle_active_variant <- function() {
 #' @param display_family Font family for display-class text (title, tag). The
 #'   design uses SF Pro Display for >= 20px sizes; defaults to `base_family`.
 #' @param surface Background fill for plot AND panel. Defaults to the active
-#'   variant's surface; pass an explicit colour to override without changing
-#'   the rest of the variant's palette.
-#' @param variant `"rabat"` (white surface, the Moroccan capital) or
-#'   `"palmeraie"` (sun-warmed adobe, the Marrakech palm grove). See
-#'   `majorelle_variants` for the full per-variant config.
+#'   base's surface; pass an explicit colour to override without changing
+#'   the rest of the base's tokens.
+#' @param base `"rabat"` (white surface, the Moroccan capital) or
+#'   `"palmeraie"` (sun-warmed terracotta, the Marrakech palm grove).
+#'   Selects the theme base — surface, ink, axes, scatter contour. Defaults
+#'   to match `variant` for the single-knob preset.
+#' @param variant `"rabat"` or `"palmeraie"`. Selects the qualitative
+#'   palette and palette-dependent callout colours (anomaly / target /
+#'   focus / demoted). The base and variant are decoupled so you can mix
+#'   them: `theme_majorelle(base = "rabat", variant = "palmeraie")` gives a
+#'   white-walled plot using the palmeraie palette.
 #' @param grid Add faint horizontal (`"y"`), vertical (`"x"`), both (`"xy"`)
 #'   or no (default `"none"`) grid lines.
 #' @export
@@ -83,16 +89,19 @@ theme_majorelle <- function(size.rel    = 1,
                             base_family = "Helvetica Neue",
                             display_family = base_family,
                             variant     = majorelle_active_variant(),
+                            base        = NULL,
                             surface     = NULL,
                             grid        = c("none", "y", "x", "xy")) {
   grid <- match.arg(grid)
-  cfg  <- majorelle_variants[[variant]]
-  if (is.null(surface)) surface <- cfg$surface
+  if (is.null(base)) base <- variant
+  base_cfg <- majorelle_variants[[base]]
+  pal_cfg  <- majorelle_variants[[variant]]
+  if (is.null(surface)) surface <- base_cfg$surface
 
-  ink         <- cfg$ink                          # title / axis labels
-  ink_soft    <- cfg$ink_soft                     # subtitle / ticks
-  axis_col    <- cfg$axis                         # spines / tick marks
-  strip_bg    <- majorelle_colours$light_gray     # #F5F5F7 (default variant)
+  ink         <- base_cfg$ink                     # title / axis labels
+  ink_soft    <- base_cfg$ink_soft                # subtitle / ticks
+  axis_col    <- base_cfg$axis                    # spines / tick marks
+  strip_bg    <- majorelle_colours$light_gray     # #F5F5F7 (default base)
   grid_col    <- majorelle_colours$gray_16        # #D2D2D7
 
   th <- ggplot2::theme_classic(base_size = base_size, base_family = base_family) +
@@ -187,23 +196,29 @@ theme_majorelle <- function(size.rel    = 1,
   th
 }
 
-#' Apply the Rabat (white-walled, default) Majorelle variant.
+#' Apply the Rabat (white-walled) theme base.
 #'
-#' Convenience wrapper for `theme_majorelle(variant = "rabat", ...)`. All
-#' other arguments forward to [theme_majorelle()].
+#' The function name fixes the theme base; `variant` picks the qualitative
+#' palette (default rabat). Pass `variant = "palmeraie"` to keep the rabat
+#' surface but use the palmeraie palette (no terracotta in the data colour
+#' cycle, plus the Jardin teal accent).
+#' @param variant Qualitative palette: `"rabat"` (default) or `"palmeraie"`.
 #' @param ... Forwarded to [theme_majorelle()].
 #' @export
-theme_rabat <- function(...) {
-  theme_majorelle(variant = "rabat", ...)
+theme_rabat <- function(variant = "rabat", ...) {
+  theme_majorelle(variant = variant, base = "rabat", ...)
 }
 
-#' Apply the Palmeraie (sun-warmed terracotta) Majorelle variant.
+#' Apply the Palmeraie (sun-warmed terracotta) theme base.
 #'
-#' Convenience wrapper for `theme_majorelle(variant = "palmeraie", ...)`.
+#' The function name fixes the theme base; `variant` picks the qualitative
+#' palette (default palmeraie). Pass `variant = "rabat"` to keep the warm
+#' surface but use the full rabat 12-colour palette.
+#' @param variant Qualitative palette: `"palmeraie"` (default) or `"rabat"`.
 #' @param ... Forwarded to [theme_majorelle()].
 #' @export
-theme_palmeraie <- function(...) {
-  theme_majorelle(variant = "palmeraie", ...)
+theme_palmeraie <- function(variant = "palmeraie", ...) {
+  theme_majorelle(variant = variant, base = "palmeraie", ...)
 }
 
 #' Convenience: set Majorelle as the session-wide default colour scales.

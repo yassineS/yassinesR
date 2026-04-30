@@ -138,31 +138,36 @@ Majorelle is a separate theme system shipped alongside `theme_yassine()`.
 It pairs Apple HIG typographic scaffolding with a palette inspired by
 Yves Saint Laurent's Jardin Majorelle in Marrakech.
 
-Two named variants share the same scaffolding and helper suite:
+Majorelle has two **bases** (the surface + ink + axes scaffolding) and
+two **palettes** (the qualitative data colours + callouts). They're
+orthogonal — you can mix them.
 
-| Variant      | Surface           | Mood                                       |
-|--------------|-------------------|--------------------------------------------|
-| `rabat`      | white `#FFFFFF`   | the white-walled Moroccan capital — crisp, formal, neutral |
-| `palmeraie`  | terracotta `#D97461` | the Marrakech palm grove — sun-warmed adobe + cobalt blue + saffron + cactus + Jardin teal |
+| Name         | As a base (`theme_*` function name) | As a palette (`variant =` argument) |
+|--------------|--------------------------------------|--------------------------------------|
+| `rabat`      | white `#FFFFFF` surface, near-black ink, gray-80 axes | the standard 12-colour qualitative palette (blue / gold / terracotta / green / …) |
+| `palmeraie`  | terracotta `#D97461` surface, warm off-white ink, light terracotta axes | the 9-colour Jardin-tuned palette (blue / gold / green / **teal** / …) — drops terracotta-family hues since the surface carries them |
 
 ```r
 library(yassinesR)
 library(ggplot2)
 
-# Per-plot:
-ggplot(...) + ... + theme_rabat()      # white-walled default
-ggplot(...) + ... + theme_palmeraie()  # sun-warmed terracotta
+# The function name picks the BASE; `variant =` picks the PALETTE.
+ggplot(...) + ... + theme_rabat()                          # rabat base + rabat palette
+ggplot(...) + ... + theme_rabat(variant = "palmeraie")     # rabat base + palmeraie palette (no terracotta in the cycle)
+ggplot(...) + ... + theme_palmeraie()                      # palmeraie base + palmeraie palette
+ggplot(...) + ... + theme_palmeraie(variant = "rabat")     # palmeraie base + rabat palette (full 12-colour, terracotta will compete with the surface)
 
-# Or session-wide (also picks the right discrete + continuous palette):
+# `theme_majorelle()` is the explicit form with both knobs:
+theme_majorelle(base = "rabat", variant = "palmeraie")
+
+# Session-wide (sets the discrete + continuous palette via options()):
 use_majorelle_defaults("rabat")
 use_majorelle_defaults("palmeraie")
 ```
 
-`theme_rabat()` and `theme_palmeraie()` are thin wrappers around
-`theme_majorelle(variant = ...)`. `use_majorelle_defaults()` additionally
-records the variant in `options("majorelle.variant")`; the annotation,
-highlight, and scale helpers all read this so you don't have to thread
-`variant=` everywhere.
+`use_majorelle_defaults()` records the palette in
+`options("majorelle.variant")`; the annotation, highlight, and scale
+helpers read this so you don't have to thread `variant=` everywhere.
 
 ### Scatter — discrete fill
 
