@@ -187,6 +187,25 @@ theme_majorelle <- function(size.rel    = 1,
   th
 }
 
+#' Apply the Rabat (white-walled, default) Majorelle variant.
+#'
+#' Convenience wrapper for `theme_majorelle(variant = "rabat", ...)`. All
+#' other arguments forward to [theme_majorelle()].
+#' @param ... Forwarded to [theme_majorelle()].
+#' @export
+theme_rabat <- function(...) {
+  theme_majorelle(variant = "rabat", ...)
+}
+
+#' Apply the Palmeraie (sun-warmed terracotta) Majorelle variant.
+#'
+#' Convenience wrapper for `theme_majorelle(variant = "palmeraie", ...)`.
+#' @param ... Forwarded to [theme_majorelle()].
+#' @export
+theme_palmeraie <- function(...) {
+  theme_majorelle(variant = "palmeraie", ...)
+}
+
 #' Convenience: set Majorelle as the session-wide default colour scales.
 #'
 #' Records the chosen variant as a session option (`majorelle.variant`), so the

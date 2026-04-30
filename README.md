@@ -149,16 +149,20 @@ Two named variants share the same scaffolding and helper suite:
 library(yassinesR)
 library(ggplot2)
 
-# Switch session-wide to the rabat (default white-walled) variant.
-use_majorelle_defaults("rabat")
+# Per-plot:
+ggplot(...) + ... + theme_rabat()      # white-walled default
+ggplot(...) + ... + theme_palmeraie()  # sun-warmed terracotta
 
-# Or to palmeraie — sun-warmed terracotta with the Jardin palette.
+# Or session-wide (also picks the right discrete + continuous palette):
+use_majorelle_defaults("rabat")
 use_majorelle_defaults("palmeraie")
 ```
 
-`use_majorelle_defaults()` records the variant in
-`options("majorelle.variant")`; the annotation, highlight, and scale
-helpers all read this so you don't have to thread `variant=` everywhere.
+`theme_rabat()` and `theme_palmeraie()` are thin wrappers around
+`theme_majorelle(variant = ...)`. `use_majorelle_defaults()` additionally
+records the variant in `options("majorelle.variant")`; the annotation,
+highlight, and scale helpers all read this so you don't have to thread
+`variant=` everywhere.
 
 ### Scatter — discrete fill
 
