@@ -1,21 +1,24 @@
 Package: yassinesR
 Type: Package
-Title: Custom ggplot2 Themes and Helper Functions
-Version: 0.1.0
-Authors@R: person("Yassine", "Souilmi", 
-    email = "yassine@example.com", 
+Title: Custom ggplot2 Themes, Palettes and Helper Functions
+Version: 0.2.0
+Authors@R: person("Yassine", "Souilmi",
+    email = "yassine@example.com",
     role = c("aut", "cre"))
-Description: Provides custom ggplot2 themes, favourite colour schemes, 
-    and useful helper functions for data visualization and analysis.
+Description: Provides custom ggplot2 themes (the original yassinesR theme,
+    plus the Majorelle design language with rabat and palmeraie variants),
+    curated colour palettes, and helper functions for data visualisation.
 License: Apache License (>= 2.0)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
-Depends: 
+Depends:
     R (>= 3.5.0)
 Imports:
     ggplot2 (>= 3.0.0),
+    gghalves,
+    grid,
     rlang,
     scales,
     tibble
